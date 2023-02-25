@@ -1,4 +1,7 @@
-import { prisma } from '../db/prisma';
+import { ApolloServer } from '@apollo/server';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+
+import { httpServer } from '../http/http';
 
 const typeDefs = `
   type User {
@@ -14,10 +17,22 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    users: () => {
-      return prisma.user.findMany();
-    }
+    users: () => []
   }
 };
 
-export { typeDefs, resolvers };
+interface Context {
+  token?: string | string[];
+}
+
+const apolloServer = new ApolloServer<Context>({
+  typeDefs,
+  resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+});
+
+async function startApollo(server: ApolloServer<Context>) {
+  await server.start();
+}
+
+export { apolloServer, startApollo, Context };

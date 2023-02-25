@@ -1,1 +1,3 @@
-import './infrastructure/http/express';
+import { startServer } from './infrastructure/http';
+
+startServer();
