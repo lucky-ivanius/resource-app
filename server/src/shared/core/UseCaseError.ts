@@ -13,9 +13,9 @@ export class NotFound extends Result<UseCaseErrorProps> {
 }
 
 export class BadRequest extends Result<UseCaseErrorProps> {
-  constructor(message: unknown) {
+  constructor(messages: unknown) {
     super(false, {
-      message
+      messages
     });
   }
 }

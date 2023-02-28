@@ -2,6 +2,7 @@ import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 
 import { httpServer } from '../http/http';
+import { Context } from './Context';
 
 const typeDefs = `
   type User {
@@ -21,10 +22,6 @@ const resolvers = {
   }
 };
 
-interface Context {
-  token?: string | string[];
-}
-
 const apolloServer = new ApolloServer<Context>({
   typeDefs,
   resolvers,
@@ -35,4 +32,4 @@ async function startApollo(server: ApolloServer<Context>) {
   await server.start();
 }
 
-export { apolloServer, startApollo, Context };
+export { apolloServer, startApollo };

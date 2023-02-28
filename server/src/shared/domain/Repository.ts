@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+export abstract class Repository<T> {
+  protected readonly _model: T;
 
-import { prisma } from '../../infrastructure/db/prisma';
-
-export abstract class Repository {
-  protected readonly model: PrismaClient = prisma;
+  constructor(model: T) {
+    this._model = model;
+  }
 }

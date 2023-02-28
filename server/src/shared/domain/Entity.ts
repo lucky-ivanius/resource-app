@@ -4,6 +4,10 @@ export abstract class Entity<T> {
   protected readonly _id: UniqueID;
   protected readonly _props: T;
 
+  get id(): UniqueID {
+    return this._id;
+  }
+
   get props(): T {
     return this._props;
   }
